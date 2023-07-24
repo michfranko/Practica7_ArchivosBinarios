@@ -91,11 +91,9 @@ public class Compositor extends Persona {
                 cancion.setTitulo(cancionActualizada.getTitulo());
                 cancion.setLetra(cancionActualizada.getLetra());
                 cancion.setTiempoEnMinutos(cancionActualizada.getTiempoEnMinutos());
-                //System.out.println("Canción actualizada correctamente.");
                 return;
             }
         }
-        //System.out.println("El código de canción no se encontró en el top 100 de Billboard.");
     }
     
 

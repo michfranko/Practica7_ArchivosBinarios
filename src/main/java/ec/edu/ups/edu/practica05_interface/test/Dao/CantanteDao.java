@@ -86,7 +86,6 @@ public class CantanteDao implements ICantanteDao {
                     int numeroDeGiras = archivoLectura.readInt();
                     double salario = archivoLectura.readDouble();
                     Cantante cantante = new Cantante(nombreArtistico, generoMusical, numeroDeSencillos, numeroDeConciertos, numeroDeGiras, codigo, nombre, apellido, edad, nacionalidad,salario);
-                    //System.out.println(salario);
                     for (int j = 0; j < 10; j++) {
                         int codigoCan = archivoLectura.readInt();
                         String nombreCAn = archivoLectura.readUTF();

@@ -357,25 +357,14 @@
                                   <Component id="jblCodigoActualizarCancion" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jblLetraActualizarCancion" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jblDuracionCancionActualizarCancion" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jblDuracionCancionActualizarCancion" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtLetra" min="-2" pref="152" max="-2" attributes="0"/>
-                                  <Component id="txtTitulo" min="-2" pref="152" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtDuracionCancion" min="-2" pref="152" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="txtLetra" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="txtTitulo" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="txtDuracionCancion" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
                           <Component id="cbxCancion" alignment="0" min="-2" pref="239" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>

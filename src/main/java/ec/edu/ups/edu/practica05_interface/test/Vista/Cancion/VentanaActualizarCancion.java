@@ -44,7 +44,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         jblSalarioActualizarCancion.setText(mensajes.getString("ventana.salario"));
         jblNumeroComposicionesActualizarCancion.setText(mensajes.getString("ventanaCompositor.numerocomposiciones"));
         btnActualizar.setText(mensajes.getString("boton.actualizar"));
-        btnBuscar.setText(mensajes.getString("boton.aceptar"));
+        btnBuscar.setText(mensajes.getString("boton.buscar"));
         btnCancelar.setText(mensajes.getString("boton.cancelar"));
         jPanel1.setBorder(BorderFactory.createTitledBorder(mensajes.getString("panel.actualizarcancion")));
         jPanel2.setBorder(BorderFactory.createTitledBorder(mensajes.getString("panel.buscarcompositor")));
@@ -353,20 +353,13 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jblTituloActualizarCancion)
                             .addComponent(jblCodigoActualizarCancion)
-                            .addComponent(jblLetraActualizarCancion))
-                        .addGap(105, 105, 105))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jblDuracionCancionActualizarCancion)
-                        .addGap(47, 47, 47)))
+                            .addComponent(jblLetraActualizarCancion)))
+                    .addComponent(jblDuracionCancionActualizarCancion))
+                .addGap(47, 47, 47)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(87, 87, 87))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtDuracionCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))
+                    .addComponent(txtLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDuracionCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
@@ -480,20 +473,6 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
         this.limpiarCamposCancion();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void cbxCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancionActionPerformed
-        if (cbxCancion.getSelectedItem() != null) {
-            Cancion cancion = (Cancion) cbxCancion.getSelectedItem();
-            txtLetra.setText(cancion.getLetra());
-            txtTitulo.setText(cancion.getTitulo());
-            txtDuracionCancion.setText(String.valueOf(cancion.getTiempoEnMinutos()));
-        }
-    }//GEN-LAST:event_cbxCancionActionPerformed
-
-    private void cbxCancionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCancionMouseClicked
-
-        cargarDatosCombo();
-    }//GEN-LAST:event_cbxCancionMouseClicked
-
     private void txtDuracionCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionCancionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDuracionCancionActionPerformed
@@ -539,6 +518,7 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
                 txtNacionalidad.setText(compositorTempo.getNacionalidad());
                 txtSalario.setText(String.valueOf(compositorTempo.calcularSalario()));
                 txtNumeroComposiciones.setText(String.valueOf(compositorTempo.getNumeroDeComposiciones()));
+                BtnAceptar.setEnabled(true);
 
             }else{
                 this.limpiarCampos();
@@ -575,6 +555,20 @@ public class VentanaActualizarCancion extends javax.swing.JInternalFrame {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void cbxCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancionActionPerformed
+        if (cbxCancion.getSelectedItem() != null) {
+            Cancion cancion = (Cancion) cbxCancion.getSelectedItem();
+            txtLetra.setText(cancion.getLetra());
+            txtTitulo.setText(cancion.getTitulo());
+            txtDuracionCancion.setText(String.valueOf(cancion.getTiempoEnMinutos()));
+        }
+    }//GEN-LAST:event_cbxCancionActionPerformed
+
+    private void cbxCancionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCancionMouseClicked
+
+        cargarDatosCombo();
+    }//GEN-LAST:event_cbxCancionMouseClicked
 
     private void limpiarCampos(){
         txtId.setText("");

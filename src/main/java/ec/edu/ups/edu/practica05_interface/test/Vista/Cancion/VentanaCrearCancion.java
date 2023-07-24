@@ -28,6 +28,7 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
     public VentanaCrearCancion(ControladorCompositor controladorCompositor) {
         initComponents();
         this.controladorCompositor = controladorCompositor;
+        this.compositor= new Compositor();
     }
 
     public void cambiarIdioma(Locale localizacion){
@@ -334,11 +335,10 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(btnAgregar)
                         .addGap(70, 70, 70)
-                        .addComponent(btnCancelarAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregar)
+                        .addGap(123, 123, 123)
+                        .addComponent(btnCancelarAgregar)))
                 .addGap(44, 44, 44))
         );
         jPanel4Layout.setVerticalGroup(
@@ -356,11 +356,11 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jblDuracionCancionAgregarCancion)
                     .addComponent(txtDuracionCancion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnCancelarAgregar))
-                .addGap(22, 22, 22))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -372,7 +372,7 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,44 +471,46 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if (txtCodigoCancion.getText().isEmpty()||txtDuracionCancion.getText().isEmpty()||txtLetra.getText().isEmpty()||txtTitulo.getText().isEmpty()||txtNacionalidad.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "joption.nosehanllenado");
-        }else{
-            int codigo = Integer.parseInt(txtCodigoCancion.getText());
-            if(compositor.buscarCancione(codigo)==null){
-                if(codigo!=0){
-                    String titulo = txtTitulo.getText();
-                    String letra = txtLetra.getText();
-                    double tiempo = Double.parseDouble(txtDuracionCancion.getText());
-                    Cancion cancion = new Cancion(codigo, llenarEspacio(titulo), llenarEspacio(letra), tiempo);
-                    List<Cancion>listaCacion = compositor.getCancionesTop100Billboard();
-                    boolean noespacio = false;
-                    for (int i = 0; i < listaCacion.size(); i++) {
-                        if(listaCacion.get(i).getCodigo()==0){
-                            System.out.println("Numero de i" +i);
-                            listaCacion.set(i, cancion);
-                            noespacio = true;
-                            break;
-                        }
+      if (txtCodigoCancion.getText().isEmpty() || txtDuracionCancion.getText().isEmpty() || txtLetra.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtNacionalidad.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "joption.nosehanllenado");
+    } else {
+        int codigo = Integer.parseInt(txtCodigoCancion.getText());
+        if (compositor.buscarCancione(codigo) == null) {
+            if (codigo != 0) {
+                String titulo = txtTitulo.getText();
+                String letra = txtLetra.getText();
+                double tiempo = Double.parseDouble(txtDuracionCancion.getText());
+
+                Cancion cancion = new Cancion(codigo, llenarEspacio(titulo), llenarEspacio(letra), tiempo);
+                List<Cancion> listaCanciones = compositor.listaCanciones();
+
+                boolean espacioEncontrado = false;
+                for (int i = 0; i < listaCanciones.size(); i++) {
+                    if (listaCanciones.get(i).getCodigo() == 0) {
+                        System.out.println("Número de i: " + i);
+                        listaCanciones.set(i, cancion);
+                        espacioEncontrado = true;
+                        break;
                     }
-                    if(noespacio){
-                        System.out.println("Lista de canciones" +listaCacion.toString());
-                        compositor.setCancionesTop100Billboard(listaCacion);
-                        controladorCompositor.actualizarCompositor(compositor);
-                        JOptionPane.showMessageDialog(this, "joption.seacreado");
-                        this.limpiarCampos();
-                        this.limpiarCamposCancion();
-                        System.out.println(compositor);
-                    }else{
-                        JOptionPane.showMessageDialog(this, "No existe mas espacio");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(this, "El codigo debe de ser distinto a cero ");
                 }
+
+                if (espacioEncontrado) {
+                    System.out.println("Lista de canciones: " + listaCanciones.toString());
+                    compositor.setCancionesTop100Billboard(listaCanciones);
+                    controladorCompositor.actualizarCompositor(compositor);
+                    JOptionPane.showMessageDialog(this, "joption.seacreado");
+                    this.limpiarCampos();
+                    this.limpiarCamposCancion();
+                    System.out.println(compositor);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No existe más espacio");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "El código debe ser distinto de cero");
             }
         }
-
-        
+    }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAgregarActionPerformed
@@ -539,12 +541,6 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
         txtTitulo.setText("");
     }
     
-    private boolean validacionDeCampos(){
-        if (txtCodigoCancion.getText().isEmpty()||txtDuracionCancion.getText().isEmpty()||txtLetra.getText().isEmpty()||txtTitulo.getText().isEmpty()||txtNacionalidad.getText().isEmpty()) {
-            return false;
-        }
-        return true;
-    }
     
     private String llenarEspacio(String palabra){
         StringBuilder nueva = new StringBuilder(palabra);

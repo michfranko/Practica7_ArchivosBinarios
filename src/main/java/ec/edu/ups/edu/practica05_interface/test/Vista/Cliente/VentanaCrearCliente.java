@@ -31,6 +31,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
         initComponents();
         this.controladorCompositor = controladorCompositor;
         this.controladorCantante = controladorCantante;
+        this.compositorTempo = new Compositor();
     }
 
     

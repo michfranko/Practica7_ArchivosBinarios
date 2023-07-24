@@ -93,22 +93,6 @@ public class Cantante extends Persona { // Define la clase Cantante, que extiend
         for (int i = 0; i < 10; i++) {
             nombreDisc.append(" ");
         }
-        //Disco discoAEliminar = null;
-        //or (Disco disco : discografia) {
-        //    if (disco.getCodigo() == codigoDisco) {
-          //      discoAEliminar = disco;
-          //      break;
-            //}
-        //}
-
-        //if (discoAEliminar != null) {
-            //discografia.remove(discoAEliminar);
-            /*Disco disc = new Disco(0, nombreDisc.toString(), 0);
-            for (int i = 0; i < discografia.size(); i++) {
-                if (discografia.get(i).getCodigo()== codigoDisco) {
-                    discografia.set(i, disc);
-                }
-            }*/
             for (Disco disco : discografia) {
                 if (disco.getCodigo()==codigoDisco) {
                     disco.setCodigo(0);
@@ -119,9 +103,6 @@ public class Cantante extends Persona { // Define la clase Cantante, que extiend
             
             
             System.out.println("Disco eliminado correctamente.");
-        //} else {
-          //  System.out.println("El disco con el código especificado no se encontró en la discografía.");
-        //}
     }
     
     public String getNombreArtistico() {

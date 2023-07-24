@@ -3,7 +3,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion$
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$7.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaActualizarDisco.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$1.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$11.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaEliminarCompositor$5.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$1.class
@@ -17,7 +16,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaEliminarCancion$11
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion.class
 ec\edu\ups\edu\practica05_interface\test\controlador\ControladorCompositor.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaCrearCliente$9.class
-ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$24.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaEliminarCompositor$11.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaCrearCliente$3.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$13.class
@@ -34,7 +32,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaEliminarCancion$1.
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$10.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaActualizarCompositor.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaEliminarCantante.class
-ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$23.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$7.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaCrearCantante$2.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$16.class
@@ -82,11 +79,9 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion$
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion$12.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaActualizarCompositor$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion$2.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$5.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaActualizarDisco$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion$10.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaCrearCompositor$6.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$8.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaEliminarCancion$3.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaActualizarCantante$3.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$5.class
@@ -105,13 +100,11 @@ ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$20.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaCrearCompositor$5.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaListarDisco$3.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaBuscarCompositor$4.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$10.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaActualizarCantante$1.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$13.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaBuscarCompositor.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion$4.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaEliminarCancion$4.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$6.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaListarCancion$10.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$11.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$3.class
@@ -125,7 +118,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaBuscarCantante$3.
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaActualizarCantante$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaCrearDisco$2.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$7.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaListarCantante.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaCrearCompositor$4.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaBuscarDisco$7.class
@@ -135,13 +127,11 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$10.c
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$4.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaActualizarCompositor$1.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaEliminarDisco$6.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$4.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaEliminarCompositor$8.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaCrearCantante$4.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$19.class
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$21.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaListarCancion$8.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaActualizarCancion$1.class
 ec\edu\ups\edu\practica05_interface\test\IDao\ICompositorDao.class
 ec\edu\ups\edu\practica05_interface\test\modelo\Disco.class
@@ -164,7 +154,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaBuscarComposito
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaListarCantante$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaEliminarDisco$1.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion$15.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$9.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaCrearDisco$4.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion$5.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion$1.class
@@ -180,7 +169,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaEliminarComposi
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaEliminarDisco$7.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cantante\VentanaActualizarCantante$5.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaCrearDisco$5.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$3.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaCrearCancion$13.class
 ec\edu\ups\edu\practica05_interface\test\modelo\Cantante.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaActualizarDisco$7.class
@@ -221,7 +209,6 @@ ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaEliminarDisco$2.clas
 ec\edu\ups\edu\practica05_interface\vista\VentanaPrincipal$6.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaBuscarCancion.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Disco\VentanaEliminarDisco$5.class
-ec\edu\ups\edu\practica05_interface\test\Vista\Cliente\VentanaListarCliente$2.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Compositor\VentanaEliminarCompositor$6.class
 ec\edu\ups\edu\practica05_interface\test\Vista\Cancion\VentanaListarCancion$7.class
 ec\edu\ups\edu\practica05_interface\test\Dao\CompositorDao.class
