@@ -471,7 +471,7 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-     if (txtCodigoCancion.getText().isEmpty() || txtDuracionCancion.getText().isEmpty() || txtLetra.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtNacionalidad.getText().isEmpty()) {
+        if (txtCodigoCancion.getText().isEmpty() || txtDuracionCancion.getText().isEmpty() || txtLetra.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtNacionalidad.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "joption.nosehanllenado");
     } else {
         int codigo = Integer.parseInt(txtCodigoCancion.getText());
@@ -480,7 +480,7 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
         double tiempo = Double.parseDouble(txtDuracionCancion.getText());
 
         // Obtener la lista de canciones actual del compositor
-        List<Cancion> listaCanciones = compositor.listaCanciones();
+        List<Cancion> listaCanciones = compositor.getCancionesTop100Billboard();
 
         // Verificar si el código es igual a cero para llenar los espacios
         if (codigo == 0) {

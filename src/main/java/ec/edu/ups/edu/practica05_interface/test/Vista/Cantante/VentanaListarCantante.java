@@ -76,6 +76,7 @@ public class VentanaListarCantante extends javax.swing.JInternalFrame {
         bntSalir = new javax.swing.JToggleButton();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);

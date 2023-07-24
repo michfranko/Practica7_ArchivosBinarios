@@ -54,14 +54,13 @@ public class Cancion {
     }
 
     @Override
-    public int hashCode() { // Método que devuelve un número entero generado a partir de la variable 'titulo'
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.titulo);
+    public int hashCode() {
+        int hash = 7;
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) { // Método que compara si dos objetos son iguales
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -72,8 +71,19 @@ public class Cancion {
             return false;
         }
         final Cancion other = (Cancion) obj;
-        return Objects.equals(this.titulo, other.titulo);
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.tiempoEnMinutos) != Double.doubleToLongBits(other.tiempoEnMinutos)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        return Objects.equals(this.letra, other.letra);
     }
+
+   
 
     @Override
     public String toString() { // Override del método toString para mostrar información del objeto Cancion en forma de string
