@@ -298,7 +298,6 @@ public class VentanaCrearDisco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtAnioLanzamientoActionPerformed
 
     private void bntBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBuscarActionPerformed
-        // TODO add your handling code here:
         if (txtIdCantante.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestalleno"));
         }else{
@@ -320,15 +319,19 @@ public class VentanaCrearDisco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bntBuscarActionPerformed
 
     private void bntAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAgregarActionPerformed
-        if (txtAnioLanzamiento.getText().isEmpty()||txtNombreDisco.getText().isEmpty()||txtCodigo.getText().isEmpty()) {
+         if (txtAnioLanzamiento.getText().isEmpty()||txtNombreDisco.getText().isEmpty()||txtCodigo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.nosehanllenado")); 
         }else{
             int codigo = Integer.parseInt( txtCodigo.getText());
             if (cantanteTempo.buscarDisco(codigo)==null) {
+                if (txtNombreDisco.getText().length()>10) {
+                    JOptionPane.showMessageDialog(this, "Es muy largo el nombre ");
+                }
+                else{
                 if (codigo!=0) {
                     String nombre =txtNombreDisco.getText();
-                int anio = Integer.parseInt( txtAnioLanzamiento.getText());
-                Disco disco = new Disco(codigo, this.llenarEspacio(nombre), anio);
+                    int anio = Integer.parseInt( txtAnioLanzamiento.getText());
+                    Disco disco = new Disco(codigo, this.llenarEspacio(nombre), anio);
                 List<Disco>listaDiscos = cantanteTempo.getDiscos();
                 boolean noEspacio =false;
                 System.out.println("Discos vacios "+listaDiscos.toString());
@@ -358,6 +361,7 @@ public class VentanaCrearDisco extends javax.swing.JInternalFrame {
                 }else{
                     JOptionPane.showMessageDialog(this, "El codigo debe de ser distinto a cero ");
                 }
+            }
                 
         }else{
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.elid")); 
@@ -388,7 +392,7 @@ public class VentanaCrearDisco extends javax.swing.JInternalFrame {
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         this.limpiarCampos();
     }//GEN-LAST:event_formInternalFrameClosing
-    public void limpiarCampos(){
+  public void limpiarCampos(){
         txtIdCantante.setText("");
         txtNombreDisco.setText("");
         txtApellido.setText("");

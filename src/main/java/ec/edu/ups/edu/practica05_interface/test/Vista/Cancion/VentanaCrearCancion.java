@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
+
 
 /**
  *
@@ -471,45 +471,48 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-      if (txtCodigoCancion.getText().isEmpty() || txtDuracionCancion.getText().isEmpty() || txtLetra.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtNacionalidad.getText().isEmpty()) {
+     if (txtCodigoCancion.getText().isEmpty() || txtDuracionCancion.getText().isEmpty() || txtLetra.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtNacionalidad.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "joption.nosehanllenado");
     } else {
         int codigo = Integer.parseInt(txtCodigoCancion.getText());
-        if (compositor.buscarCancione(codigo) == null) {
-            if (codigo != 0) {
-                String titulo = txtTitulo.getText();
-                String letra = txtLetra.getText();
-                double tiempo = Double.parseDouble(txtDuracionCancion.getText());
+        String titulo = txtTitulo.getText();
+        String letra = txtLetra.getText();
+        double tiempo = Double.parseDouble(txtDuracionCancion.getText());
 
-                Cancion cancion = new Cancion(codigo, llenarEspacio(titulo), llenarEspacio(letra), tiempo);
-                List<Cancion> listaCanciones = compositor.listaCanciones();
+        // Obtener la lista de canciones actual del compositor
+        List<Cancion> listaCanciones = compositor.listaCanciones();
 
-                boolean espacioEncontrado = false;
-                for (int i = 0; i < listaCanciones.size(); i++) {
-                    if (listaCanciones.get(i).getCodigo() == 0) {
-                        System.out.println("Número de i: " + i);
-                        listaCanciones.set(i, cancion);
-                        espacioEncontrado = true;
-                        break;
-                    }
+        // Verificar si el código es igual a cero para llenar los espacios
+        if (codigo == 0) {
+            for (int i = 0; i < listaCanciones.size(); i++) {
+                if (listaCanciones.get(i).getCodigo() == 0) {
+                    listaCanciones.get(i).setCodigo(codigo);
+                    listaCanciones.get(i).setTitulo(llenarEspacio(titulo));
+                    listaCanciones.get(i).setLetra(llenarEspacio(letra));
+                    listaCanciones.get(i).setTiempoEnMinutos(tiempo);
+                    break;
                 }
-
-                if (espacioEncontrado) {
-                    System.out.println("Lista de canciones: " + listaCanciones.toString());
-                    compositor.setCancionesTop100Billboard(listaCanciones);
-                    controladorCompositor.actualizarCompositor(compositor);
-                    JOptionPane.showMessageDialog(this, "joption.seacreado");
-                    this.limpiarCampos();
-                    this.limpiarCamposCancion();
-                    System.out.println(compositor);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No existe más espacio");
-                }
-
+            }
+        } else {
+            // Crear una nueva instancia de la Cancion
+            Cancion cancion = new Cancion(codigo, llenarEspacio(titulo), llenarEspacio(letra), tiempo);
+            // Verificar si la canción ya existe en la lista por su código
+            if (existeCancion(codigo, listaCanciones)) {
+                JOptionPane.showMessageDialog(this, "La canción ya existe con ese código");
             } else {
-                JOptionPane.showMessageDialog(this, "El código debe ser distinto de cero");
+                // Agregar la nueva canción a la lista de canciones del compositor
+                listaCanciones.add(cancion);
             }
         }
+
+        // Actualizar la lista de canciones del compositor
+        compositor.setCancionesTop100Billboard(listaCanciones);
+        controladorCompositor.actualizarCompositor(compositor);
+
+        JOptionPane.showMessageDialog(this, "La canción se ha creado exitosamente");
+        this.limpiarCampos();
+        this.limpiarCamposCancion();
+        System.out.println(compositor);
     }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -550,6 +553,14 @@ public class VentanaCrearCancion extends javax.swing.JInternalFrame {
         System.out.println("Espacio del caracter :" + nueva.length());
         return nueva.toString();
     }
+    private boolean existeCancion(int codigo, List<Cancion> listaCanciones) {
+    for (Cancion cancion : listaCanciones) {
+        if (cancion.getCodigo() == codigo) {
+            return true; // La canción ya existe en la lista
+        }
+    }
+    return false; // La canción no existe en la lista
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;

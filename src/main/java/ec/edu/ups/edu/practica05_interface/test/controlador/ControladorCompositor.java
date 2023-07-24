@@ -9,6 +9,7 @@ import ec.edu.ups.edu.practica05_interface.test.IDao.ICompositorDao;
 import ec.edu.ups.edu.practica05_interface.test.modelo.Cancion;
 import ec.edu.ups.edu.practica05_interface.test.modelo.Cantante;
 import ec.edu.ups.edu.practica05_interface.test.modelo.Compositor;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,4 +66,18 @@ public class ControladorCompositor {
     public void eliminarCancion(Compositor compositor, int codigo){
         compositor.eliminarCancion(codigo);
     }
+    
+    public List<Cancion> obtenerCancionesDeCompositor(int codigoCompositor) {
+    List<Cancion> cancionesDelCompositor = new ArrayList<>();
+    
+    // Recorre la lista de compositores para buscar el compositor con el código especificado
+    for (Compositor compositor : verCompositores()) {
+        if (compositor.getCodigo() == codigoCompositor) {
+            cancionesDelCompositor = compositor.getCancionesTop100Billboard();
+            break; // Detener el bucle una vez que se encuentre el compositor
+        }
+    }
+    
+    return cancionesDelCompositor;
+}
 }

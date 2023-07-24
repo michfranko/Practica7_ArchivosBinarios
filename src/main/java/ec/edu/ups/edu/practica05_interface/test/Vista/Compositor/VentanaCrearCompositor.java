@@ -204,12 +204,12 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
                         .addComponent(btnAceptar)
                         .addGap(35, 35, 35)
                         .addComponent(btnCancelar)))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -317,14 +317,12 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
                     }else{
                         Compositor compositor = new Compositor(numeroComposiciones, id, llenarEspacio(nombre), llenarEspacio(apellido), edad, llenarEspacio(nacionalidad), salario);
                         this.agregarCancionesVacias(compositor); 
-                        //Cantante cantante = new Cantante(llenarEspacio(""), llenarEspacio(" "), 0, 0, 0, 0, llenarEspacio(" "), llenarEspacio(" "), 0, llenarEspacio(" "), 0.00);
                         this.agregarCliente(compositor); 
-                        //Disco disco = new Disco(12, "La noche", 2000);
-                        //cantante.agregarDisco(disco);
+                        
                         controladorCompositor.crearCompositor(compositor); 
                         this.limpiarCampos();
                         JOptionPane.showMessageDialog(this, mensajes.getString("joption.secreocompositor"));
-                        //System.out.println(controladorCompositor.verCompositores());
+
                     }
                 
             }else{
@@ -345,7 +343,7 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         this.limpiarCampos();
     }//GEN-LAST:event_formInternalFrameClosing
 
-    
+
     private boolean validacionDeCampos(){
         if (txtId.getText().isEmpty()||txtNombre.getText().isEmpty()||txtApellido.getText().isEmpty()||txtEdad.getText().isEmpty()||txtNacionalidad.getText().isEmpty()
                 || txtSalario.getText().isEmpty()||txtNumeroComposiciones.getText().isEmpty()) {
@@ -370,7 +368,7 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
             String letra = "          ";
             double tiempo = 0.00;
             Cancion cancion = new Cancion(codigo, titulo, letra, tiempo);
-            //Cancion cancion = new Cancion(0, llenarEspacio(""), llenarEspacio(""), 0.00);
+            
             compositor.agregarCancion(cancion); 
         }
     }
@@ -380,7 +378,7 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         for (int i = palabra.length(); i < 25; i++) {
             nueva.append(" ");
         }
-        System.out.println("Espacio del caracter :" + nueva.length());
+        
         return nueva.toString();
         
     }
@@ -390,18 +388,16 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         for (int i = pa.length(); i < 10; i++) {
             nueva.append(" ");
         }
-        System.out.println("Espacio del caracter :" + nueva.length());
+        //System.out.println("Espacio del caracter :" + nueva.length());
         return nueva.toString();
     }
     
     public void agregarCliente(Compositor compositor){
         for (int i = 0; i < 10; i++) {
-            
             Cantante cantante = new Cantante(llenarEspacio(""), llenarGeneroMusica(""), 0, 0, 0, 0, llenarEspacio(""), llenarEspacio(""), 0, llenarEspacio(""), 0.00); 
             compositor.agregarClientE(cantante); 
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

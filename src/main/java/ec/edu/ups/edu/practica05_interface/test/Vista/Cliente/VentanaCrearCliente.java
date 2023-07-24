@@ -23,6 +23,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
     private ControladorCantante controladorCantante;
     private ResourceBundle mensajes;
     private Compositor compositorTempo;
+    private Cantante cantanteTempo;
     
     /**
      * Creates new form AgregarCliente
@@ -32,6 +33,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
         this.controladorCompositor = controladorCompositor;
         this.controladorCantante = controladorCantante;
         this.compositorTempo = new Compositor();
+        this.cantanteTempo = new Cantante();
     }
 
     
@@ -537,7 +539,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
         if (txtId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestalleno")); 
         }else{
-            Compositor compositorTempo = controladorCompositor.buscarCompositor(Integer.parseInt(txtId.getText()));
+            compositorTempo = controladorCompositor.buscarCompositor(Integer.parseInt(txtId.getText()));
             if (compositorTempo !=null) {
                 txtNombre.setText(compositorTempo.getNombre());
                 txtApellido.setText(compositorTempo.getApellido());
@@ -559,11 +561,10 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtEdad1ActionPerformed
 
     private void bntAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAceptarActionPerformed
-        // TODO add your handling code here:
-        if (txtID.getText().isEmpty()) {
+          if (txtID.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestalleno"));
         }else{
-            Cantante cantanteTempo = controladorCantante.buscarCantante(Integer.parseInt(txtID.getText()));
+            cantanteTempo = controladorCantante.buscarCantante(Integer.parseInt(txtID.getText()));
             if (cantanteTempo !=null) {
                 txtNombre1.setText(cantanteTempo.getNombre());
                 txtApellido1.setText(cantanteTempo.getApellido());
@@ -575,7 +576,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
                 txtNumeroSencillos.setText(String.valueOf(cantanteTempo.getNumeroDeSencillos()));
                 txtNumeroConciertos.setText(String.valueOf(cantanteTempo.getNumeroDeConciertos()));
                 txtNumeroGiras.setText(String.valueOf(cantanteTempo.getNumeroDeGiras()));
-
+                
             }else{
                 this.limpiarCamposCantante();
                 JOptionPane.showMessageDialog(this, mensajes.getString("joption.noexiste"));
@@ -592,16 +593,14 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        if(txtID.getText().isEmpty() || txtId.getText().isEmpty()){
+     if(txtID.getText().isEmpty() || txtId.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.camposnollenos")); 
         }else{
             int id = Integer.parseInt(txtID.getText()); 
-            //if(compositorTempo.buscarCliente(id) == null){
+
                 if(id!=0){
                     Cantante cliente = new Cantante(txtNombreArtistico.getText(), txtGeneroMusical.getText(), Integer.parseInt(txtNumeroSencillos.getText()), Integer.parseInt(txtNumeroConciertos.getText()), Integer.parseInt(txtNumeroGiras.getText()), Integer.parseInt(txtID.getText()),txtNombre1.getText() , txtApellido1.getText(), Integer.parseInt(txtEdad1.getText()), txtNacionalidad1.getText(), Double.parseDouble(txtSalario1.getText())); 
-                    //compositorTempo.agregarClientE(cliente); 
-                    
-                    //System.out.println("-------------------------------\n"+cliente+"---------------------");
+
                     List<Cantante> listaClientes = compositorTempo.getCliente();
                     boolean noEspacio = false;
                     for (int i = 0; i < listaClientes.size(); i++) {
@@ -611,7 +610,6 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
                             break;
                         }
                     }
-                    //System.out.println("Lista de clientes :--------------------------------------------\n "+ compositorTempo.getCliente());
                     if(noEspacio){
                         compositorTempo.setCliente(listaClientes);
                         controladorCompositor.actualizarCompositor(compositorTempo);
@@ -624,7 +622,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
 
                     }   
                 }
-            //}
+
         }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
@@ -632,9 +630,7 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
         this.limpiarCampos();
         this.limpiarCamposCantante();
     }//GEN-LAST:event_formInternalFrameClosing
-
-    
-    private void limpiarCampos(){
+ private void limpiarCampos(){
         txtId.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
@@ -657,6 +653,8 @@ public class VentanaCrearCliente extends javax.swing.JInternalFrame {
         txtNumeroGiras.setText("");
         txtGeneroMusical.setText(""); 
     }
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntAceptar;

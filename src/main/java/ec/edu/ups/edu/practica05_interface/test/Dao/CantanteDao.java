@@ -15,8 +15,8 @@ import java.util.List;
 public class CantanteDao implements ICantanteDao {
     private String ruta;
    
-    private RandomAccessFile archivoEscritura;
-    private RandomAccessFile archivoLectura;
+    private RandomAccessFile escritura;
+    private RandomAccessFile lectura;
 
 
     public CantanteDao() {
@@ -28,28 +28,28 @@ public class CantanteDao implements ICantanteDao {
     public void create(Cantante cantante) {
         
          try {
-            archivoEscritura = new RandomAccessFile(ruta, "rw");
-            archivoEscritura.seek(archivoEscritura.length());
-            archivoEscritura.writeInt(cantante.getCodigo());
-            archivoEscritura.writeUTF(cantante.getNombre());
-            archivoEscritura.writeUTF(cantante.getApellido());
-            archivoEscritura.writeInt(cantante.getEdad());
-            archivoEscritura.writeUTF(cantante.getNacionalidad());
-            archivoEscritura.writeUTF(cantante.getNombreArtistico());
-            archivoEscritura.writeUTF(cantante.getGeneroMusical());
-            archivoEscritura.writeInt(cantante.getNumeroDeSencillos());
-            archivoEscritura.writeInt(cantante.getNumeroDeConciertos());
-            archivoEscritura.writeInt(cantante.getNumeroDeGiras());
-            archivoEscritura.writeDouble(cantante.getSalario());
+            escritura = new RandomAccessFile(ruta, "rw");
+            escritura.seek(escritura.length());
+            escritura.writeInt(cantante.getCodigo());
+            escritura.writeUTF(cantante.getNombre());
+           escritura.writeUTF(cantante.getApellido());
+            escritura.writeInt(cantante.getEdad());
+            escritura.writeUTF(cantante.getNacionalidad());
+            escritura.writeUTF(cantante.getNombreArtistico());
+            escritura.writeUTF(cantante.getGeneroMusical());
+            escritura.writeInt(cantante.getNumeroDeSencillos());
+            escritura.writeInt(cantante.getNumeroDeConciertos());
+            escritura.writeInt(cantante.getNumeroDeGiras());
+            escritura.writeDouble(cantante.getSalario());
             List<Disco> listaDisc = cantante.getDiscos();
              System.out.println(cantante.getSalario());
             for (int i = 0; i < 10; i++) {
-                 archivoEscritura.writeInt(listaDisc.get(i).getCodigo());
-                 archivoEscritura.writeUTF(listaDisc.get(i).getNombre());
-                 archivoEscritura.writeInt(listaDisc.get(i).getAnioDeLanzamiento());
+                 escritura.writeInt(listaDisc.get(i).getCodigo());
+                 escritura.writeUTF(listaDisc.get(i).getNombre());
+                 escritura.writeInt(listaDisc.get(i).getAnioDeLanzamiento());
             }
-             System.out.println(archivoEscritura.length());
-            archivoEscritura.close();
+             System.out.println(escritura.length());
+            escritura.close();
          }
         catch(FileNotFoundException e){
             System.out.println("Ruta no ecncontrada");
@@ -66,40 +66,40 @@ public class CantanteDao implements ICantanteDao {
     @Override
     public Cantante read(int codigo) {
         try {
-            archivoLectura = new RandomAccessFile(ruta, "r");
+            lectura = new RandomAccessFile(ruta, "r");
             int bytesPorCantante = 363;
-            long numCantantes = archivoLectura.length() / bytesPorCantante;
+            long numCantantes = lectura.length() / bytesPorCantante;
 
             for (int i = 0; i < numCantantes; i++) {
-                archivoLectura.seek(i * bytesPorCantante);
-                int codigoCantante = archivoLectura.readInt();
+                lectura.seek(i * bytesPorCantante);
+                int codigoCantante = lectura.readInt();
 
                 if (codigoCantante == codigo) {
-                    String nombre = archivoLectura.readUTF();
-                    String apellido = archivoLectura.readUTF();
-                    int edad = archivoLectura.readInt();
-                    String nacionalidad = archivoLectura.readUTF();
-                    String nombreArtistico = archivoLectura.readUTF();
-                    String generoMusical = archivoLectura.readUTF();
-                    int numeroDeSencillos = archivoLectura.readInt();
-                    int numeroDeConciertos = archivoLectura.readInt();
-                    int numeroDeGiras = archivoLectura.readInt();
-                    double salario = archivoLectura.readDouble();
+                    String nombre = lectura.readUTF();
+                     String apellido = lectura.readUTF();
+                      int edad = lectura.readInt();
+                       String nacionalidad = lectura.readUTF();
+                        String nombreArtistico = lectura.readUTF();
+                        String generoMusical = lectura.readUTF();
+                       int numeroDeSencillos = lectura.readInt();
+                      int numeroDeConciertos = lectura.readInt();
+                     int numeroDeGiras = lectura.readInt();
+                    double salario = lectura.readDouble();
                     Cantante cantante = new Cantante(nombreArtistico, generoMusical, numeroDeSencillos, numeroDeConciertos, numeroDeGiras, codigo, nombre, apellido, edad, nacionalidad,salario);
                     for (int j = 0; j < 10; j++) {
-                        int codigoCan = archivoLectura.readInt();
-                        String nombreCAn = archivoLectura.readUTF();
-                        int anio = archivoLectura.readInt();
+                        int codigoCan = lectura.readInt();
+                         String nombreCAn = lectura.readUTF();
+                        int anio = lectura.readInt();
                         Disco dis = new Disco(codigoCan, nombreCAn, anio);
                         cantante.agregarDisco(dis);
                         
                     }
-                    archivoLectura.close();
+                    lectura.close();
 
                     return cantante ;
             }
         }
-        archivoLectura.close();
+        lectura.close();
         } catch (FileNotFoundException e) {
             System.out.println("Ruta no encontrada");
         } catch (IOException e1) {
@@ -123,19 +123,19 @@ public class CantanteDao implements ICantanteDao {
                 int codigoCantante = archivo.readInt();
                 if (codigoCantante == cantante.getCodigo()) {
                     archivo.writeUTF(cantante.getNombre());
-                    archivo.writeUTF(cantante.getApellido());
-                    archivo.writeInt(cantante.getEdad());
-                    archivo.writeUTF(cantante.getNacionalidad());
-                    archivo.writeUTF(cantante.getNombreArtistico());
-                    archivo.writeUTF(cantante.getGeneroMusical());
-                    archivo.writeInt(cantante.getNumeroDeSencillos());
-                    archivo.writeInt(cantante.getNumeroDeConciertos());
-                    archivo.writeInt(cantante.getNumeroDeGiras());
+                     archivo.writeUTF(cantante.getApellido());
+                      archivo.writeInt(cantante.getEdad());
+                       archivo.writeUTF(cantante.getNacionalidad());
+                         archivo.writeUTF(cantante.getNombreArtistico());
+                         archivo.writeUTF(cantante.getGeneroMusical());
+                       archivo.writeInt(cantante.getNumeroDeSencillos());
+                      archivo.writeInt(cantante.getNumeroDeConciertos());
+                     archivo.writeInt(cantante.getNumeroDeGiras());
                     archivo.writeDouble(cantante.getSalario());
                     List<Disco> listaDisc = cantante.getDiscos();
                     for (int j = 0; i < listaDisc.size(); j++) {
                         archivo.writeInt(listaDisc.get(j).getCodigo());
-                        archivo.writeUTF(listaDisc.get(j).getNombre());
+                         archivo.writeUTF(listaDisc.get(j).getNombre());
                         archivo.writeInt(listaDisc.get(j).getAnioDeLanzamiento());
                     }
                     
@@ -160,16 +160,16 @@ public class CantanteDao implements ICantanteDao {
 
             int bytesPorCantante = 363;
             long numCantantes = archivito.length() / bytesPorCantante;
-            for (int i = 0; i < numCantantes; i++) {
+              for (int i = 0; i < numCantantes; i++) {
                 archivito.seek(i * bytesPorCantante);
-                int codigoCantante = archivito.readInt();
-                if (codigoCantante == cantante.getCodigo()) {
+                  int codigoCantante = archivito.readInt();
+                  if (codigoCantante == cantante.getCodigo()) {
                     
                     for (int j = i + 1; j < numCantantes; j++) {
                         archivito.seek( j * bytesPorCantante);
                         byte[] datos = new byte[bytesPorCantante];
                         archivito.readFully(datos);
-                        archivito.seek((j - 1) * bytesPorCantante);
+                         archivito.seek((j - 1) * bytesPorCantante);
                         archivito.write(datos);
                     }
                     archivito.setLength((numCantantes-1)*bytesPorCantante);
@@ -216,19 +216,19 @@ public class CantanteDao implements ICantanteDao {
             int codigo = archivoLectura.readInt();
             
             String nombre = archivoLectura.readUTF();
-            String apellido = archivoLectura.readUTF();
-            int edad = archivoLectura.readInt();
-            String nacionalidad = archivoLectura.readUTF();
-            String nombreArtistico = archivoLectura.readUTF();
-            String generoMusical = archivoLectura.readUTF();
-            int numeroDeSencillos = archivoLectura.readInt();
-            int numeroDeConciertos = archivoLectura.readInt();
-            int numeroDeGiras = archivoLectura.readInt();
+             String apellido = archivoLectura.readUTF();
+              int edad = archivoLectura.readInt();
+               String nacionalidad = archivoLectura.readUTF();
+                String nombreArtistico = archivoLectura.readUTF();
+                String generoMusical = archivoLectura.readUTF();
+               int numeroDeSencillos = archivoLectura.readInt();
+              int numeroDeConciertos = archivoLectura.readInt();
+             int numeroDeGiras = archivoLectura.readInt();
             double salario = archivoLectura.readDouble();
             Cantante cantante = new Cantante(nombreArtistico, generoMusical, numeroDeSencillos, numeroDeConciertos, numeroDeGiras, codigo, nombre, apellido, edad, nacionalidad, salario);
             for (int j = 0; j < 10; j++) {
                 int codigoCan = archivoLectura.readInt();
-                String nombreCAn = archivoLectura.readUTF();
+                 String nombreCAn = archivoLectura.readUTF();
                 int anio = archivoLectura.readInt();
                 Disco dis = new Disco(codigoCan, nombreCAn, anio);
                 cantante.agregarDisco(dis);

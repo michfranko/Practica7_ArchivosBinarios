@@ -15,13 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositorDao implements ICompositorDao{
+   private String ruta;
+    private RandomAccessFile Escritura;
     
-    private String ruta;
-    private RandomAccessFile archivoEscritura;
-    
-    private RandomAccessFile archivoLectura;
-    private RandomAccessFile archivito;
-
+   private RandomAccessFile Lectura;
+   
 
     public CompositorDao() {
         this.ruta = "src\\main\\resources\\rutas\\compositor.PSN";
@@ -32,38 +30,39 @@ public class CompositorDao implements ICompositorDao{
     @Override
     public void create(Compositor compositor) {
         try {
-            archivoEscritura = new RandomAccessFile(ruta, "rw");
-            archivoEscritura.seek(archivoEscritura.length());
-            archivoEscritura.writeInt(compositor.getCodigo());
-            archivoEscritura.writeUTF(compositor.getNombre());
-            archivoEscritura.writeUTF(compositor.getApellido());
-            archivoEscritura.writeInt(compositor.getEdad());
-            archivoEscritura.writeUTF(compositor.getNacionalidad());
-            archivoEscritura.writeInt(compositor.getNumeroDeComposiciones());
-            archivoEscritura.writeDouble(compositor.getSalario());
+            Escritura = new RandomAccessFile(ruta, "rw");
+            Escritura.seek(Escritura.length());
+            
+            Escritura.writeInt(compositor.getCodigo());
+            Escritura.writeUTF(compositor.getNombre());
+            Escritura.writeUTF(compositor.getApellido());
+            Escritura.writeInt(compositor.getEdad());
+            Escritura.writeUTF(compositor.getNacionalidad());
+            Escritura.writeInt(compositor.getNumeroDeComposiciones());
+            Escritura.writeDouble(compositor.getSalario());
             List<Cancion> listaCanc = compositor.getCancionesTop100Billboard();
-            for (int i = 0; i < 10 ; i++) {
-                 archivoEscritura.writeInt(listaCanc.get(i).getCodigo());
-                 archivoEscritura.writeUTF(listaCanc.get(i).getTitulo());
-                 archivoEscritura.writeUTF(listaCanc.get(i).getLetra());
-                 archivoEscritura.writeDouble(listaCanc.get(i).getTiempoEnMinutos());
+            for (int i = 0; i < listaCanc.size() ; i++) {
+                 Escritura.writeInt(listaCanc.get(i).getCodigo());
+                 Escritura.writeUTF(listaCanc.get(i).getTitulo());
+                 Escritura.writeUTF(listaCanc.get(i).getLetra());
+                 Escritura.writeDouble(listaCanc.get(i).getTiempoEnMinutos());
             }
             List<Cantante> listaCantante = compositor.getCliente();
-            for (int i = 0; i < 10; i++) {
-                archivoEscritura.writeInt(listaCantante.get(i).getCodigo());
-                archivoEscritura.writeUTF(listaCantante.get(i).getNombre());
-                archivoEscritura.writeUTF(listaCantante.get(i).getApellido());
-                archivoEscritura.writeInt(listaCantante.get(i).getEdad());
-                archivoEscritura.writeUTF(listaCantante.get(i).getNacionalidad());
-                archivoEscritura.writeUTF(listaCantante.get(i).getNombreArtistico());
-                archivoEscritura.writeUTF(listaCantante.get(i).getGeneroMusical());
-                archivoEscritura.writeInt(listaCantante.get(i).getNumeroDeSencillos());
-                archivoEscritura.writeInt(listaCantante.get(i).getNumeroDeConciertos());
-                archivoEscritura.writeInt(listaCantante.get(i).getNumeroDeGiras());
-                archivoEscritura.writeDouble(listaCantante.get(i).getSalario());
+            for (int i = 0; i < listaCantante.size(); i++) {
+                Escritura.writeInt(listaCantante.get(i).getCodigo());
+                Escritura.writeUTF(listaCantante.get(i).getNombre());
+                Escritura.writeUTF(listaCantante.get(i).getApellido());
+                Escritura.writeInt(listaCantante.get(i).getEdad());
+                Escritura.writeUTF(listaCantante.get(i).getNacionalidad());
+                Escritura.writeUTF(listaCantante.get(i).getNombreArtistico());
+                Escritura.writeUTF(listaCantante.get(i).getGeneroMusical());
+                Escritura.writeInt(listaCantante.get(i).getNumeroDeSencillos());
+                Escritura.writeInt(listaCantante.get(i).getNumeroDeConciertos());
+                Escritura.writeInt(listaCantante.get(i).getNumeroDeGiras());
+                Escritura.writeDouble(listaCantante.get(i).getSalario());
             }
-            System.out.println(archivoEscritura.length()); 
-            archivoEscritura.close();
+            System.out.println("Tamnio del archivo : "+Escritura.length()); 
+            Escritura.close();
          }
         catch(FileNotFoundException e){
             System.out.println("Ruta no ecncontrada");
@@ -78,151 +77,150 @@ public class CompositorDao implements ICompositorDao{
     @Override
     public Compositor read(int codigo) {
         try {
-            archivoLectura = new RandomAccessFile(ruta, "r");
-            int bytesPorCompositor = 2241;
-            long numCompositores = archivoLectura.length() / bytesPorCompositor;
+            Lectura = new RandomAccessFile(ruta, "r");
+            int bytesPorCompositor = 1941;
+            long numCompositores = Lectura.length() / bytesPorCompositor;
 
             for (int i = 0; i < numCompositores; i++) {
-                archivoLectura.seek(i * bytesPorCompositor);
-                int codigoCantante = archivoLectura.readInt();
+                Lectura.seek(i * bytesPorCompositor);
+                int codigoCantante = Lectura.readInt();
 
                 if (codigoCantante == codigo) {
-                    String nombre = archivoLectura.readUTF();
-                    String apellido = archivoLectura.readUTF();
-                    int edad = archivoLectura.readInt();
-                    String nacionalidad = archivoLectura.readUTF();
-                    int numeroComposiciones = archivoLectura.readInt();
-                    double salario = archivoLectura.readDouble();
+                    String nombre = Lectura.readUTF();
+                    String apellido = Lectura.readUTF();
+                    int edad = Lectura.readInt();
+                    String nacionalidad = Lectura.readUTF();
+                    int numeroComposiciones = Lectura.readInt();
+                    double salario = Lectura.readDouble();
                     Compositor compositor = new Compositor(numeroComposiciones, codigo, nombre, apellido, edad, nacionalidad, salario);
                     for (int j = 0; j < 10; j++) {
-                        int codigoComp = archivoLectura.readInt();
-                        String titulo = archivoLectura.readUTF();
-                        String letra = archivoLectura.readUTF();
-                        double tiempo = archivoLectura.readDouble();
+                        int codigoComp = Lectura.readInt();
+                        String titulo = Lectura.readUTF();
+                        String letra = Lectura.readUTF();
+                        double tiempo = Lectura.readDouble();
                         Cancion cancion = new Cancion(codigoComp, titulo, letra,tiempo );
                         compositor.agregarCancion(cancion); 
                         
                     }
                     
                     for (int j = 0; j < 10; j++) {
-                        int codigoCan = archivoLectura.readInt();
-                        String nombreCan = archivoLectura.readUTF();
-                        String apellidoCan = archivoLectura.readUTF();
-                        int edadCan = archivoLectura.readInt();
-                        String nacionalidadCan = archivoLectura.readUTF();
-                        String nombreARCan = archivoLectura.readUTF();
-                        String generoMusical = archivoLectura.readUTF();
-                        int numeroSencillos = archivoLectura.readInt();
-                        int numeroConciertos = archivoLectura.readInt();
-                        int numeroGiras = archivoLectura.readInt();
-                        double salarioCan = archivoLectura.readDouble();
+                        int codigoCan = Lectura.readInt();
+                        String nombreCan = Lectura.readUTF();
+                        String apellidoCan = Lectura.readUTF();
+                        int edadCan = Lectura.readInt();
+                        String nacionalidadCan = Lectura.readUTF();
+                        String nombreARCan = Lectura.readUTF();
+                        String generoMusical = Lectura.readUTF();
+                        int numeroSencillos = Lectura.readInt();
+                        int numeroConciertos = Lectura.readInt();
+                        int numeroGiras = Lectura.readInt();
+                        double salarioCan = Lectura.readDouble();
                         Cantante cantante = new Cantante(nombreARCan, generoMusical, numeroSencillos, numeroConciertos, numeroGiras, codigoCan, nombreCan, apellidoCan, edadCan, nacionalidadCan, salarioCan);
                         compositor.agregarClientE(cantante); 
                     }
                     
-                    archivoLectura.close();
+                    Lectura.close();
 
                     return compositor ;
             }
         }
-        archivoLectura.close();
+        Lectura.close();
         } catch (FileNotFoundException e) {
             System.out.println("Ruta no encontrada");
         } catch (IOException e1) {
             System.out.println("Error de Lectura");
         } catch (Exception e) {
             System.out.println("Error General");
-    }
-
-    return null; 
+        }
+        return null; 
     }
 
     @Override
-    public void update(Compositor compositor) {
+    public void update(Compositor nuevoCompositor) {
         try {
-            RandomAccessFile archivo = new RandomAccessFile(ruta, "rw");
-            int bytesPorCompositor = 2241 ;
-            long numCompositores = archivo.length() / bytesPorCompositor;
-            for (int i = 0; i < numCompositores; i++) {
-                archivo.seek(i * bytesPorCompositor);
-                int codigoCompositor = archivo.readInt();
-                if (codigoCompositor == compositor.getCodigo()) {
-                    archivo.writeUTF(compositor.getNombre());
-                    archivo.writeUTF(compositor.getApellido());
-                    archivo.writeInt(compositor.getEdad());
-                    archivo.writeUTF(compositor.getNacionalidad());
-                    archivo.writeInt(compositor.getNumeroDeComposiciones());
-                    archivo.writeDouble(compositor.getSalario());
-                    List<Cancion> listaCanc = compositor.getCancionesTop100Billboard();
-                    System.out.println("Lista del update = "+ listaCanc.toString());
-                    for (int j = 0; j < listaCanc.size(); j++) {
-                        archivo.writeInt(listaCanc.get(j).getCodigo());
-                        archivo.writeUTF(listaCanc.get(j).getTitulo());
-                        archivo.writeUTF(listaCanc.get(j).getLetra());
-                        archivo.writeDouble(listaCanc.get(j).getTiempoEnMinutos());
-                        
-                    }
-                    
-                    List<Cantante> listaCantante = compositor.getCliente();
-                    for (int j = 0; j < 10; j++) {
-                        archivo.writeInt(listaCantante.get(j).getCodigo());
-                        archivo.writeUTF(listaCantante.get(j).getNombre());
-                        archivo.writeUTF(listaCantante.get(j).getApellido());
-                        archivo.writeInt(listaCantante.get(j).getEdad());
-                        archivo.writeUTF(listaCantante.get(j).getNacionalidad());
-                        archivo.writeUTF(listaCantante.get(j).getNombreArtistico());
-                        archivo.writeUTF(listaCantante.get(j).getGeneroMusical());
-                        archivo.writeInt(listaCantante.get(j).getNumeroDeSencillos());
-                        archivo.writeInt(listaCantante.get(j).getNumeroDeConciertos());
-                        archivo.writeInt(listaCantante.get(j).getNumeroDeGiras());
-                        archivo.writeDouble(listaCantante.get(j).getSalario());
-                    }
-                    
-                    archivo.close();
-                    return; 
-            }
-        }
+            RandomAccessFile archivoEscritura = new RandomAccessFile(ruta, "rw");
+            int bytesPorCompositor = 1941; 
+            long numCompositores = archivoEscritura.length() / bytesPorCompositor;
+            boolean encontrado = false;
 
-        archivo.close();
-        //System.out.println("No ser encontr cantante");
+            for (int i = 0; i < numCompositores; i++) {
+            
+                archivoEscritura.seek(i * bytesPorCompositor);
+
+                int codigo = archivoEscritura.readInt();
+
+                if (codigo == nuevoCompositor.getCodigo()) {
+                    System.out.println("Codigo " + codigo);
+                    encontrado = true;
+                    archivoEscritura.writeUTF(nuevoCompositor.getNombre());
+                    archivoEscritura.writeUTF(nuevoCompositor.getApellido());
+                    archivoEscritura.writeInt(nuevoCompositor.getEdad());
+                    archivoEscritura.writeUTF(nuevoCompositor.getNacionalidad());
+                    archivoEscritura.writeInt(nuevoCompositor.getNumeroDeComposiciones());
+                    archivoEscritura.writeDouble(nuevoCompositor.getSalario());
+                    List<Cancion> listaCanc = nuevoCompositor.getCancionesTop100Billboard();
+                    for (int j = 0; j < listaCanc.size(); j++) {
+                        archivoEscritura.writeInt(listaCanc.get(j).getCodigo());
+                        archivoEscritura.writeUTF(listaCanc.get(j).getTitulo());
+                        archivoEscritura.writeUTF(listaCanc.get(j).getLetra());
+                        archivoEscritura.writeDouble(listaCanc.get(j).getTiempoEnMinutos());
+                    }
+                    List<Cantante> listaCantante = nuevoCompositor.getCliente();
+                    for (int j = 0; j < listaCantante.size(); j++) {
+                        archivoEscritura.writeInt(listaCantante.get(j).getCodigo());
+                        archivoEscritura.writeUTF(listaCantante.get(j).getNombre());
+                        archivoEscritura.writeUTF(listaCantante.get(j).getApellido());
+                        archivoEscritura.writeInt(listaCantante.get(j).getEdad());
+                        archivoEscritura.writeUTF(listaCantante.get(j).getNacionalidad());
+                        archivoEscritura.writeUTF(listaCantante.get(j).getNombreArtistico());
+                        archivoEscritura.writeUTF(listaCantante.get(j).getGeneroMusical());
+                        archivoEscritura.writeInt(listaCantante.get(j).getNumeroDeSencillos());
+                        archivoEscritura.writeInt(listaCantante.get(j).getNumeroDeConciertos());
+                        archivoEscritura.writeInt(listaCantante.get(j).getNumeroDeGiras());
+                        archivoEscritura.writeDouble(listaCantante.get(j).getSalario());
+                    }
+                    break; 
+                }
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Ruta no encontrada");
-            } catch (IOException e1) {
-                System.out.println("Error de Lectura");
-            } catch (Exception e) {
-                System.out.println("Error General");
+        } catch (IOException e1) {
+            System.out.println("Error de Lectura/Escritura");
+        } catch (Exception e) {
+            System.out.println("Error General");
         }
     }
 
     @Override
     public void delete(Compositor compostior) {
-        try{
-            archivito = new RandomAccessFile(ruta, "rw");
+        
+        try {
+            RandomAccessFile archivo = new RandomAccessFile(ruta, "rw");
+            int bytesPorCompositor = 1941; 
+            long numCompositores = archivo.length() / bytesPorCompositor;
+            
 
-            int bytesPorCompositor = 2241;
-            long numCantantes = archivito.length() / bytesPorCompositor;
+            for (int i = 0; i < numCompositores; i++) {
+                archivo.seek(i * bytesPorCompositor);
+                int codigo = archivo.readInt();
+                if (codigo == compostior.getCodigo()) {
+                    
+                    for (int j = i + 1; j < numCompositores; j++) {
+                        archivo.seek(j * bytesPorCompositor);
+                        byte[] datos = new byte[bytesPorCompositor];
+                        archivo.readFully(datos);
+                        archivo.seek((j - 1) * bytesPorCompositor);
+                        archivo.write(datos);
+                    }
 
-            for (int i = 0; i < numCantantes; i++) {
-                archivito.seek(i * bytesPorCompositor);
-                int codigoCantante = archivito.readInt();
-                if (codigoCantante == compostior.getCodigo()) {
-                    long posicionActual = i * bytesPorCompositor;
-                    long posicionSiguiente = (i + 1) * bytesPorCompositor;
-                    long bytesRestantes = archivito.length() - posicionSiguiente;
-
-                    byte[] buffer = new byte[(int) bytesRestantes];
-                    archivito.read(buffer);
-
-                    archivito.seek(posicionActual);
-                    archivito.write(buffer);
-                    archivito.setLength(archivito.length() - bytesPorCompositor);
-                    archivito.close();
-                    return; 
+                    archivo.setLength((numCompositores - 1) * bytesPorCompositor); 
+                    break; 
                 }
             }
-            archivito.close();
-            //System.out.println("No Existe el codgo");
-        }catch (FileNotFoundException e) {
+
+            archivo.close();
+
+        } catch (FileNotFoundException e) {
             System.out.println("Ruta no encontrada");
         } catch (IOException e1) {
             System.out.println("Error de Lectura/Escritura");
@@ -234,11 +232,11 @@ public class CompositorDao implements ICompositorDao{
     @Override
     public Compositor buscarPorTituloDeCancion(String valor) {
         List<Compositor> listaCompositor = this.findAll();
-        for (Compositor compositor : listaCompositor) { // iteramos sobre cada persona en la lista
-            if (compositor instanceof Compositor) { // si la persona es un compositor
-                for (Cancion cancion : compositor.getCancionesTop100Billboard()) { // iteramos sobre las canciones del compositor
+        for (Compositor compositor : listaCompositor) { 
+            if (compositor instanceof Compositor) { 
+                for (Cancion cancion : compositor.getCancionesTop100Billboard()) { 
                     if (cancion.getTitulo().equals(valor)) { 
-                        return compositor; // solo se imprime la primera coincidencia, por lo que terminamos el método con un return
+                        return compositor; 
                     }
                 }
             }
@@ -250,66 +248,65 @@ public class CompositorDao implements ICompositorDao{
     public List<Compositor> findAll() {
         List<Compositor> listaCompositores = new ArrayList<>();
 
-    try {
-        RandomAccessFile archivoLectura = new RandomAccessFile(ruta, "r");
-        int bytesPorCompositor = 1941; 
+        try {
+            RandomAccessFile archivoLectura = new RandomAccessFile(ruta, "r");
+            int bytesPorCompositor = 1941; 
 
-        long numCompositores = archivoLectura.length() / bytesPorCompositor;
-        System.out.println(archivoLectura.length());
-        for (int i = 0; i < numCompositores; i++) {
-            archivoLectura.seek(i * bytesPorCompositor);
-
-            int codigo = archivoLectura.readInt();
-            String nombre = archivoLectura.readUTF();
-            String apellido = archivoLectura.readUTF();
-            int edad = archivoLectura.readInt();
-            String nacionalidad = archivoLectura.readUTF();
-            int numeroComposiciones = archivoLectura.readInt();
-            double salario = archivoLectura.readDouble();
-
-            Compositor compositor = new Compositor(numeroComposiciones, codigo, nombre, apellido, edad, nacionalidad, salario);
+            long numCompositores = archivoLectura.length() / bytesPorCompositor;
             System.out.println(archivoLectura.length());
-            for (int j = 0; j < 10; j++) {
-                int codigoCancion = archivoLectura.readInt();
-                String titulo = archivoLectura.readUTF();
-                String letra = archivoLectura.readUTF();
-                double tiempo = archivoLectura.readDouble();
-                Cancion cancion = new Cancion(codigoCancion, titulo, letra, tiempo);
-                compositor.agregarCancion(cancion);
+            for (int i = 0; i < numCompositores; i++) {
+                archivoLectura.seek(i * bytesPorCompositor);
+
+                int codigo = archivoLectura.readInt();
+                String nombre = archivoLectura.readUTF();
+                String apellido = archivoLectura.readUTF();
+                int edad = archivoLectura.readInt();
+                String nacionalidad = archivoLectura.readUTF();
+                int numeroComposiciones = archivoLectura.readInt();
+                double salario = archivoLectura.readDouble();
+
+                Compositor compositor = new Compositor(numeroComposiciones, codigo, nombre, apellido, edad, nacionalidad, salario);
+                System.out.println(archivoLectura.length());
+                for (int j = 0; j < 10; j++) {
+                    int codigoCancion = archivoLectura.readInt();
+                    String titulo = archivoLectura.readUTF();
+                    String letra = archivoLectura.readUTF();
+                    double tiempo = archivoLectura.readDouble();
+                    Cancion cancion = new Cancion(codigoCancion, titulo, letra, tiempo);
+                    compositor.agregarCancion(cancion);
+                }
+
+                for (int j = 0; j < 10; j++) {
+                    int codigoCantante = archivoLectura.readInt();
+                    String nombreCantante = archivoLectura.readUTF();
+                    String apellidoCantante = archivoLectura.readUTF();
+                    int edadCantante = archivoLectura.readInt();
+                    String nacionalidadCantante = archivoLectura.readUTF();
+                    String nombreArtistico = archivoLectura.readUTF();
+                    String generoMusical = archivoLectura.readUTF();
+                    int numeroSencillos = archivoLectura.readInt();
+                    int numeroConciertos = archivoLectura.readInt();
+                    int numeroGiras = archivoLectura.readInt();
+                    double salarioCantante = archivoLectura.readDouble();
+
+                    Cantante cantante = new Cantante(nombreArtistico, generoMusical, numeroSencillos, numeroConciertos, numeroGiras, codigoCantante, nombreCantante, apellidoCantante, edadCantante, nacionalidadCantante, salarioCantante);
+                    compositor.agregarClientE(cantante);
+                }
+
+                listaCompositores.add(compositor);
             }
 
-            for (int j = 0; j < 10; j++) {
-                int codigoCantante = archivoLectura.readInt();
-                String nombreCantante = archivoLectura.readUTF();
-                String apellidoCantante = archivoLectura.readUTF();
-                int edadCantante = archivoLectura.readInt();
-                String nacionalidadCantante = archivoLectura.readUTF();
-                String nombreArtistico = archivoLectura.readUTF();
-                String generoMusical = archivoLectura.readUTF();
-                int numeroSencillos = archivoLectura.readInt();
-                int numeroConciertos = archivoLectura.readInt();
-                int numeroGiras = archivoLectura.readInt();
-                double salarioCantante = archivoLectura.readDouble();
-
-                Cantante cantante = new Cantante(nombreArtistico, generoMusical, numeroSencillos, numeroConciertos, numeroGiras, codigoCantante, nombreCantante, apellidoCantante, edadCantante, nacionalidadCantante, salarioCantante);
-                compositor.agregarClientE(cantante);
-            }
-
-            listaCompositores.add(compositor);
+            archivoLectura.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Ruta no encontrada");
+        } catch (IOException e1) {
+            System.out.println("Error de Lectura");
+        } catch (Exception e) {
+            System.out.println("Error General");
         }
 
-        archivoLectura.close();
-    } catch (FileNotFoundException e) {
-        System.out.println("Ruta no encontrada");
-    } catch (IOException e1) {
-        System.out.println("Error de Lectura");
-    } catch (Exception e) {
-        System.out.println("Error General");
+        return listaCompositores;
     }
-
-    return listaCompositores;
-    }
-    
 }
     
 

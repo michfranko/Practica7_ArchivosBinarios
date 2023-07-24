@@ -303,8 +303,7 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBuscar4ActionPerformed
-        // TODO add your handling code here:
-        if (txtIdCantante4.getText().isEmpty()) {
+       if (txtIdCantante4.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestalleno"));    
         }else{
             cantanteTempo = controladorCantante.buscarCantante(Integer.parseInt(txtIdCantante4.getText()));
@@ -337,10 +336,12 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtAnioLanzamiento4ActionPerformed
 
     private void bntActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntActualizarActionPerformed
-        
-        if (txtAnioLanzamiento4.getText().isEmpty()||txtNombreDisco4.getText().isEmpty()||txtCodigo4.getText().isEmpty()) {
+       if (txtAnioLanzamiento4.getText().isEmpty()||txtNombreDisco4.getText().isEmpty()||txtCodigo4.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.nosehanllenado")); 
         }else{
+            if (txtNombreDisco4.getText().length()>10) {
+                JOptionPane.showMessageDialog(this, "El nombre es muy extenso");
+            }else{
             Disco disquito = new Disco(Integer.parseInt(txtCodigo4.getText()), this.llenarEspacio(txtNombreDisco4.getText()), Integer.parseInt(txtAnioLanzamiento4.getText()));
             cantanteTempo.actualizarDisco(disquito);
             JOptionPane.showMessageDialog(this, mensajes.getString("joption.seactualizo")); 
@@ -351,11 +352,48 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
             txtAnioLanzamiento4.setEnabled(false);
             txtCodigo4.setEnabled(true);
             bntActualizar.setEnabled(false);
-            System.out.println(cantanteTempo);
+            controladorCantante.actualizar(cantanteTempo);
+
+            }
         }
     }//GEN-LAST:event_bntActualizarActionPerformed
-    
-    public void limpiarCampos(){
+  
+    private void bntCancelar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelar4ActionPerformed
+
+        this.limpiarCampos();
+        this.setVisible(false);
+        txtNombreDisco4.setEnabled(false);
+        txtAnioLanzamiento4.setEnabled(false);
+        bntActualizar.setEnabled(false);
+        bntBuscar4.setEnabled(true);
+        txtIdCantante4.setEnabled(true);
+        bntBuscarDisco.setEnabled(false);
+        txtCodigo4.setEnabled(false);
+    }//GEN-LAST:event_bntCancelar4ActionPerformed
+
+    private void bntBuscarDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBuscarDiscoActionPerformed
+      if (txtCodigo4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestallenocodigo")); 
+        }else {
+            disco = cantanteTempo.buscarDisco(Integer.parseInt(txtCodigo4.getText()));
+            if (disco!=null) {
+                txtCodigo4.setEnabled(false);
+                txtAnioLanzamiento4.setText(String.valueOf(disco.getAnioDeLanzamiento()));
+                bntActualizar.setEnabled(true);
+                txtAnioLanzamiento4.setEnabled(true);
+                txtNombreDisco4.setEnabled(true);
+                txtNombreDisco4.setText(disco.getNombre());
+                bntBuscarDisco.setEnabled(false);
+            }else{
+                JOptionPane.showMessageDialog(this, mensajes.getString("joption.noseencontroeldisco")); 
+            }
+        }
+    }//GEN-LAST:event_bntBuscarDiscoActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        this.limpiarCampos();
+    }//GEN-LAST:event_formInternalFrameClosing
+  public void limpiarCampos(){
         txtIdCantante4.setText("");
         
         txtApellido4.setText("");
@@ -384,45 +422,6 @@ public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
         return nueva.toString();
     }
     
-    
-    
-    private void bntCancelar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelar4ActionPerformed
-        // TODO add your handling code here:
-        this.limpiarCampos();
-        this.setVisible(false);
-        txtNombreDisco4.setEnabled(false);
-        txtAnioLanzamiento4.setEnabled(false);
-        bntActualizar.setEnabled(false);
-        bntBuscar4.setEnabled(true);
-        txtIdCantante4.setEnabled(true);
-        bntBuscarDisco.setEnabled(false);
-        txtCodigo4.setEnabled(false);
-    }//GEN-LAST:event_bntCancelar4ActionPerformed
-
-    private void bntBuscarDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBuscarDiscoActionPerformed
-       // TODO add your handling code here:
-        if (txtCodigo4.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, mensajes.getString("joption.noestallenocodigo")); 
-        }else {
-            disco = cantanteTempo.buscarDisco(Integer.parseInt(txtCodigo4.getText()));
-            if (disco!=null) {
-                txtCodigo4.setEnabled(false);
-                txtAnioLanzamiento4.setText(String.valueOf(disco.getAnioDeLanzamiento()));
-                bntActualizar.setEnabled(true);
-                txtAnioLanzamiento4.setEnabled(true);
-                txtNombreDisco4.setEnabled(true);
-                txtNombreDisco4.setText(disco.getNombre());
-                bntBuscarDisco.setEnabled(false);
-            }else{
-                JOptionPane.showMessageDialog(this, mensajes.getString("joption.noseencontroeldisco")); 
-            }
-        }
-    }//GEN-LAST:event_bntBuscarDiscoActionPerformed
-
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        this.limpiarCampos();
-    }//GEN-LAST:event_formInternalFrameClosing
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntActualizar;

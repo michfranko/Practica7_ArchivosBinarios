@@ -486,7 +486,7 @@ public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
                 txtNacionalidad.setText(compositorTempo.getNacionalidad());
                 txtSalario.setText(String.valueOf(compositorTempo.calcularSalario()));
                 txtNumeroComposiciones.setText(String.valueOf(compositorTempo.getNumeroDeComposiciones()));
-
+                BtnAceptar.setEnabled(true);
             }else{
                 this.limpiarCampos();
                 JOptionPane.showMessageDialog(this, mensajes.getString("joption.noexiste")); 
